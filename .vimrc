@@ -6,19 +6,56 @@
 " created 2012-04-05 Thu 02:25 PM
 " modified 2013-05-05 Sun 12:02 AM 
 "-----------------------------------------------------------------------------
-" GENERAL SETTINGS
-" this section is largely based on 'A BITE OF VIM'
-" see http://www.swaroopch.org/notes/Vim
-
-" use pathogen and github to manage budles, see for example:
-" http://lostjs.com/2012/02/04/use-pathogen-and-git-to-manage-vimfiles/
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-Helptags
+" VBUNDLES 
+" use vbundle and github to manage plugins
+" https://github.com/gmarik/vundle 
 
 " use vim settings, rather than vi settings
 " this must be first
-set nocompatible
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+" MY BUNDLES HERE:
+" 
+" original repos on github
+Bundle 'sgeb/vim-matlab'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'flazz/vim-colorschemes'
+Bundle 'jcf/vim-latex'
+Bundle 'klen/python-mode'
+Bundle 'vim-pandoc/vim-pandoc'
+" vim-scripts repos
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'ctrlp.vim'
+Bundle 'EasyMotion'
+Bundle 'Vim-R-plugin'
+" non github repos
+" Bundle 'git://git.wincent.com/command-t.git'
+" ...
+
+filetype plugin indent on     " required!
+"
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
+
+"-----------------------------------------------------------------------------
+" GENERAL SETTINGS
+" this section is largely based on 'A BITE OF VIM'
+" see http://www.swaroopch.org/notes/Vim
 
 " show line numbers
 set nu
@@ -112,7 +149,8 @@ au BufWinEnter * silent! loadview
 "-----------------------------------------------------------------------------
 " PLUGINS SETTINGS
 
-" bundle/vim-matlab
+" vim-matlab
+"
 " https://github.com/sgeb/vim-matlab
 " According to http://www.vim.org/scripts/script.php?script_id=2407, do:
 " $ mkdir ftplugin
@@ -125,5 +163,50 @@ source $VIMRUNTIME/macros/matchit.vim
 filetype indent on
 autocmd BufEnter *.m compiler mlint
  
+" vim-latex
+"
+" Use: \ll to compile, \lv to view pdf; \ls doesn't work
+" REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
+let $PATH = $PATH.":/usr/texbin"
+filetype plugin on
 
+" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
+" can be called correctly.
+set shellslash
 
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+
+" OPTIONAL: This enables automatic indentation as you type.
+filetype indent on
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+
+" The following settings are based on
+" www.charlietanksley.net/philtex/vim-latex/
+let g:Tex_DefaultTargetFormat='pdf'
+let g:Tex_MultipleCompileFormats = 'pdf'
+let g:Tex_ViewRule_pdf='Skim'
+let g:Tex_ViewRule_dvi='Skim'
+let g:Tex_CompileRule_pdf = 'xelatex --synctex=-1 -src-specials -interaction=nonstopmode $*'
+let g:Tex_Folding=0
+
+" enable forward search and inverse search
+" http://molecularclouds.blogspot.com/2012/01/latex-vim-skim.html
+" to use:
+" forward search: ,m command will reload the file and put your cursor where the text is
+" forward search: ,t will return VIM to the front afterwards
+" inverse search: cmd + shift + click
+" activate skim
+map ,v :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR><CR>
+map ,p :w<CR>:silent !pdflatex -synctex=1 --interaction=nonstopmode %:p <CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR><CR>
+map ,m :w<CR>:silent !make <CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR><CR>
+
+" reactivate vim
+map ,r :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR>:silent !osascript -e "tell application \"MacVim\" to activate" <CR><CR>
+map ,t :w<CR>:silent !pdflatex -synctex=1 --interaction=nonstopmode %:p <CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline -r <C-r>=line('.')<CR> %<.pdf %<CR>:silent !osascript -e "tell application \"MacVim\" to activate" <CR><CR>
