@@ -110,3 +110,20 @@ au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 
 "-----------------------------------------------------------------------------
+" PLUGINS SETTINGS
+
+" bundle/vim-matlab
+" https://github.com/sgeb/vim-matlab
+" According to http://www.vim.org/scripts/script.php?script_id=2407, do:
+" $ mkdir ftplugin
+" $ mkdir indent
+" $ mkdir compiler
+" $ cp ~/.vim/bundle/vim-matlab/ftplugin/matlab.vim ~/.vim/ftplugin/
+" $ cp ~/.vim/bundle/vim-matlab/indent/matlab.vim ~/.vim/indent/
+" $ cp ~/.vim/bundle/vim-matlab/compiler/mlint.vim ~/.vim/compiler/
+source $VIMRUNTIME/macros/matchit.vim 
+filetype indent on
+autocmd BufEnter *.m compiler mlint
+ 
+
+

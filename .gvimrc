@@ -24,16 +24,16 @@ set guifont=Inconsolata:h16
 set antialias 
 
 " choose color scheme
-colorscheme desert 
 
-" if has("gui_running")
+if has("gui_running")
+    colorscheme desertEx
 " colorscheme solarized
 " set background=light
 " let g:solarized_contrast="high"
 " let g:solarized_visibility="high"
-" else
-"     colorscheme solarized
-" endif 
+else
+    colorscheme default 
+endif 
 
 " " nice tex color choices are: moria, wombat, jellybeans, neon, settlemyer
 " " tabula, tango2, zenburn, hemisu
