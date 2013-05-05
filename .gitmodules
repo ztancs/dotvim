@@ -10,3 +10,6 @@
 [submodule "bundle/colorschemes"]
 	path = bundle/colorschemes
 	url = git@github.com:flazz/vim-colorschemes.git
+[submodule "bundle/vim-matlab"]
+	path = bundle/vim-matlab
+	url = git://github.com/sgeb/vim-matlab.git
