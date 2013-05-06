@@ -1,2 +1,2 @@
-This is my dotvim file.
+This is my .vim folder.
 ======

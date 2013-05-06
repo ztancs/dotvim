@@ -149,11 +149,11 @@ au BufWinEnter * silent! loadview
 "-----------------------------------------------------------------------------
 " PLUGINS SETTINGS
 
-" Use Marked.app to preview markdown files: \\p to preview
+" Use Marked.app to preview markdown files: \p to preview
 "
 " http://stackoverflow.com/questions/9212340/is-there-a-vim-plugin-for-preview-markdown-file
 function! s:setupMarkup()
-  nnoremap <leader><leader>p :silent !open -a Marked.app '%:p'<cr>
+  nnoremap <leader>p :silent !open -a Marked.app '%:p'<cr>
 endfunction
 
 au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
@@ -174,7 +174,7 @@ autocmd BufEnter *.m compiler mlint
  
 " vim-latex
 "
-" Use: \ll to compile, \lv to view pdf; \ls doesn't work
+" Use: \ll to compile, \lv to view pdf; \ls to jump to the current cursor position 
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
 let $PATH = $PATH.":/usr/texbin"
 filetype plugin on
