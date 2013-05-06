@@ -149,6 +149,15 @@ au BufWinEnter * silent! loadview
 "-----------------------------------------------------------------------------
 " PLUGINS SETTINGS
 
+" Use Marked.app to preview markdown files: \\p to preview
+"
+" http://stackoverflow.com/questions/9212340/is-there-a-vim-plugin-for-preview-markdown-file
+function! s:setupMarkup()
+  nnoremap <leader><leader>p :silent !open -a Marked.app '%:p'<cr>
+endfunction
+
+au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
+
 " vim-matlab
 "
 " https://github.com/sgeb/vim-matlab

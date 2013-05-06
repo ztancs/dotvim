@@ -18,8 +18,10 @@ set guioptions-=r
 set guioptions-=L
 
 " font setting
-" other choices: Monaco, Monospace, Consolas
-set guifont=Inconsolata:h16
+" font choices: Inconsolata, Monaco, Monospace, Consolas
+set guifont=Inconsolata:h16     " English
+set guifontwide=STXihei:h16     " Chinese
+" set guifontwide=Menlo:h16   " Chinese
 " MacVim: smooth fonts.
 set antialias 
 
